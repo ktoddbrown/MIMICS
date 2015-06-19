@@ -1,4 +1,4 @@
-makeInitalPar <- function(I, fMET, TSOI, fCLAY, Tao_MOD1){
+makeInitalPar <- function(I, fMET, TSOI, fCLAY, Tao_MOD1, VMAX=NULL, KM=NULL){
 
 ##################
 #Calculate Vmax (using parameters from German 2012, as in Wieder et al. 2013 Nature Climate Change)
@@ -8,7 +8,11 @@ Vint     <- 5.47
 aV       <- 8e-6
 Vmax     <- exp(TSOI * Vslope + Vint) * aV
 MOD1     <- c(10, 2, 10, 3, 3, 2) #Modifiers for MIMIC2_b
-VMAX     <- Vmax * MOD1 
+if(is.null(VMAX)){
+  VMAX     <- Vmax * MOD1 
+}else{
+  if(length(VMAX) != length( Vmax * MOD1 )) stop('VMAX is wrong length')
+}
 
 ################
 #Calculate KM
@@ -26,8 +30,11 @@ k        <- 2.0    #2.0  		#REDUCED FROM 3 TO 1, REDUCES TEXTURE EFFECTS ON SOMa
 a        <- 2.0    #2.2			#increased from 4.0 to 4.5
 pSCALAR  <- a * exp(-k*(sqrt(fCLAY)))  #Scalar for texture effects on SOMp
 MOD2     <- c( 8, 2 ,4 * pSCALAR, 2, 4, 6 * pSCALAR)  ##Modifiers for MIMICS2_b
-KM       <- Km / MOD2
-
+if(is.null(KM)){
+  KM       <- Km / MOD2
+}else{
+  if(length(KM) != length( Km/ MOD1 )) stop('KM is wrong length')
+}
 
 ########################
 ## CUE - carbon use effiency
