@@ -50,7 +50,6 @@ fPHYS    <- c(0.3 * exp(1.3*fCLAY), 0.2 * exp(0.8*fCLAY))   #fraction to SOMp
 ## fCHEM
 ########################
 fCHEM    <- c(0.1 * exp(-3*fMET)  , 0.3 * exp(-3*fMET)  ) 	#fraction to SOMc
-fAVAI    <- 
 
 ########################
 ## tao
